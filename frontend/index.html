@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PneumoAI - Système de Détection de Pneumonie</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫁</text></svg>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-lungs"></i>
+                <span class="nav-title">PneumoAI</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span>Accueil</span>
+                </a>
+                <a href="#prediction" class="nav-link" data-section="prediction">
+                    <i class="fas fa-brain"></i>
+                    <span>Prédiction</span>
+                </a>
+                <a href="#dashboard" class="nav-link" data-section="dashboard">
+                    <i class="fas fa-chart-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                
+                
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            <span class="gradient-text">Système de Détection</span>
+                            <br>de Pneumonie par IA
+                        </h1>
+                        <br>
+                        <p class="hero-subtitle">
+                            Intelligence Artificielle pour l'aide au diagnostic médical
+
+                        </p>
+                        </div>
+                        </div>
+                        <br>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="showSection('prediction')">
+                                <i class="fas fa-upload"></i>
+                                Analyser une image
+                            </button>
+                            <button class="btn btn-secondary" onclick="showSection('dashboard')">
+                                <i class="fas fa-chart-line"></i>
+                                Voir le dashboard
+                            </button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        
+                 </div>
+                </div>
+
+                <!-- Features Grid -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Rapide & Précis</h3>
+                        <p>Analyse en temps réel avec un réseau de neurones optimisé</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Dashboard Intelligent</h3>
+                        <p>Visualisation complète des prédictions et statistiques</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Historique Sauvegardé</h3>
+                        <p>Toutes les prédictions sont stockées de manière sécurisée</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h3>Aide au Diagnostic</h3>
+                        <p>Outil d'aide à la décision pour les professionnels de santé</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prediction Section -->
+        <section id="prediction" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-brain"></i>
+                        Prédiction IA
+                    </h2>
+                    <p class="section-subtitle">Téléchargez une radiographie thoracique pour analyser la présence de pneumonie</p>
+                </div>
+
+                <div class="prediction-container">
+                    <div class="upload-zone" id="uploadZone">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <h3>Glissez-déposez votre image ici</h3>
+                        <p>ou cliquez pour sélectionner un fichier</p>
+                        <input type="file" id="imageInput" accept="image/*" hidden>
+                        <button class="btn btn-primary" onclick="document.getElementById('imageInput').click()">
+                            Choisir une image
+                        </button>
+                    </div>
+
+                    <div class="image-preview" id="imagePreview" style="display: none;">
+                        <div class="preview-container">
+                            <img id="previewImage" alt="Aperçu">
+                            <div class="image-info">
+                                <h4>Image sélectionnée</h4>
+                                <p id="imageName"></p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" id="analyzeBtn">
+                            <i class="fas fa-microscope"></i>
+                            Analyser l'image
+                        </button>
+                    </div>
+
+                    <div class="prediction-result" id="predictionResult" style="display: none;">
+                        <div class="result-header">
+                            <h3>Résultat de l'analyse</h3>
+                            <div class="result-timestamp" id="resultTimestamp"></div>
+                        </div>
+                        
+                        <div class="result-content">
+                            <!-- SUPPRIMÉ: La carte de diagnostic vert/orange -->
+                            
+                            <div class="result-metrics">
+                                <div class="metric-card">
+                                    <div class="metric-label">Confiance</div>
+                                    <div class="metric-value" id="confidenceValue">0%</div>
+                                    <div class="metric-bar">
+                                        <div class="metric-fill" id="confidenceBar"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Probabilité Normal</div>
+                                    <div class="metric-value" id="normalProb">0%</div>
+                                </div>
+                                <div class="metric-card">
+                                    <div class="metric-label">Probabilité Pneumonie</div>
+                                    <div class="metric-value" id="pneumoniaProb">0%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button class="btn btn-secondary" onclick="savePrediction()">
+                                <i class="fas fa-save"></i>
+                                Sauvegarder
+                            </button>
+                            <button class="btn btn-outline" onclick="resetPrediction()">
+                                <i class="fas fa-redo"></i>
+                                Nouvelle analyse
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-chart-dashboard"></i>
+                        Dashboard Prédictions
+                    </h2>
+                    <p class="section-subtitle">Vue d'ensemble des analyses effectuées</p>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="kpi-value" id="totalPredictions">0</div>
+                        <div class="kpi-label">Total Prédictions</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <div class="kpi-value" id="avgConfidence">0%</div>
+                        <div class="kpi-label">Confiance Moyenne</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="kpi-value" id="normalRate">0%</div>
+                        <div class="kpi-label">Taux Normal</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="kpi-value" id="pneumoniaRate">0%</div>
+                        <div class="kpi-label">Taux Pneumonie</div>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Évolution des Prédictions</h3>
+                        <canvas id="predictionsChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Répartition des Diagnostics</h3>
+                        <canvas id="diagnosisChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="predictions-table">
+                    <div class="table-header">
+                        <h3>Historique des Prédictions</h3>
+                        <button class="btn btn-outline" onclick="loadPredictions()">
+                            <i class="fas fa-sync-alt"></i>
+                            Rafraîchir
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table id="predictionsTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Diagnostic</th>
+                                    <th>Confiance</th>
+                                    <th>Probabilités</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="predictionsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        
+        
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Analyse en cours...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
+ 
+</body>
+</html>
