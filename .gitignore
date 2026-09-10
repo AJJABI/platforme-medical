@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
+*.egg-info/
+
+# Secrets / config
+.env
+*.env.local
+
+# Données runtime (base de données + uploads)
+backend/predictions.db
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Poids du modèle (fichiers volumineux — voir note Git LFS ci-dessous)
+model/*.pth
+model/*.h5
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
